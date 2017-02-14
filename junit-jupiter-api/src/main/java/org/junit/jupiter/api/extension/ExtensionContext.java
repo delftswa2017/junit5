@@ -12,11 +12,14 @@ package org.junit.jupiter.api.extension;
 
 import static org.junit.platform.commons.meta.API.Usage.Experimental;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -340,6 +343,33 @@ public interface ExtensionContext {
 			return parts.hashCode();
 		}
 
+	}
+
+	/**
+	 * Get the {@link Util} instance providing access to commonly used helper methods.
+	 *
+	 * @return the util instance; never {@code null}
+	 */
+	Util getUtil();
+
+	/**
+	 * Groups commonly used helper methods used by extensions.
+	 *
+	 * TODO Copy (and enhance) javadoc to methods below.
+	 */
+	interface Util {
+
+		boolean isAnnotated(AnnotatedElement element, Class<? extends Annotation> annotationType);
+
+		<A extends Annotation> Optional<A> findAnnotation(AnnotatedElement element, Class<A> annotationType);
+
+		<A extends Annotation> List<A> findRepeatableAnnotations(AnnotatedElement element, Class<A> annotationType);
+
+		List<Field> findPublicAnnotatedFields(Class<?> clazz, Class<?> fieldType,
+				Class<? extends Annotation> annotationType);
+
+		List<Method> findAnnotatedMethods(Class<?> clazz, Class<? extends Annotation> annotationType,
+				boolean sortOrderHierarchyDown);
 	}
 
 }
