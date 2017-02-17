@@ -171,7 +171,6 @@ class RunListenerAdapterTests {
 	private static TestIdentifier newMethodIdentifier() throws Exception {
 		TestDescriptor testDescriptor = new MethodTestDescriptor(newId(), MyTestClass.class,
 			MyTestClass.class.getDeclaredMethod(MY_TEST_METHOD_NAME));
-
 		testDescriptor.setParent(new ClassTestDescriptor(newId(), MyTestClass.class));
 		return TestIdentifier.from(testDescriptor);
 	}
@@ -183,7 +182,7 @@ class RunListenerAdapterTests {
 
 	private static TestIdentifier newSourcelessIdentifierWithParent(TestPlan testPlan, String parentDisplay) {
 		// A parent test identifier with a name.
-		final DefaultLegacyReportingInfo emptyLegacyReportingInfo = new DefaultLegacyReportingInfo("", parentDisplay);
+		DefaultLegacyReportingInfo emptyLegacyReportingInfo = new DefaultLegacyReportingInfo("", parentDisplay);
 		TestDescriptor parent = mock(TestDescriptor.class);
 		when(parent.getUniqueId()).thenReturn(newId());
 		when(parent.getDisplayName()).thenReturn(parentDisplay);

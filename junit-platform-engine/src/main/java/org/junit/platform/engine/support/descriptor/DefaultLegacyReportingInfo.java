@@ -21,8 +21,8 @@ public class DefaultLegacyReportingInfo implements TestDescriptor.LegacyReportin
 	private final String className;
 
 	public static DefaultLegacyReportingInfo from(TestDescriptor.LegacyReportingInfo info) {
-		final String methodName = info.getMethodName().orElse(null);
-		final String className = info.getClassName().orElse(null);
+		String methodName = info.getMethodName().orElse(null);
+		String className = info.getClassName().orElse(null);
 		return new DefaultLegacyReportingInfo(methodName, className);
 	}
 

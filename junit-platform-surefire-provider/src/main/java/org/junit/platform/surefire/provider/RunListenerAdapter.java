@@ -82,9 +82,10 @@ final class RunListenerAdapter implements TestExecutionListener {
 	}
 
 	private SimpleReportEntry createReportEntry(TestIdentifier testIdentifier, Optional<Throwable> throwable) {
-		final TestDescriptor.LegacyReportingInfo legacyReportingInfo = testIdentifier.getLegacyReportingInfo();
+		TestDescriptor.LegacyReportingInfo legacyReportingInfo = testIdentifier.getLegacyReportingInfo();
 		Optional<String> className = legacyReportingInfo.getClassName();
-		final String methodName = legacyReportingInfo.getMethodName().orElse("");
+		String methodName = legacyReportingInfo.getMethodName().orElse("");
+
 		if (className.isPresent()) {
 			StackTraceWriter traceWriter = new PojoStackTraceWriter(className.get(), methodName,
 				throwable.orElse(null));

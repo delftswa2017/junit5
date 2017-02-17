@@ -41,16 +41,16 @@ public class LegacyReportingTests {
 	public void testLegacyXmlReport() throws TestSetFailedException, InvocationTargetException {
 		ProviderParameters providerParameters = providerParametersMock(Sub1Tests.class, Sub2Tests.class);
 
-		final JUnitPlatformProvider jUnitPlatformProvider = new JUnitPlatformProvider(providerParameters);
+		JUnitPlatformProvider jUnitPlatformProvider = new JUnitPlatformProvider(providerParameters);
 		TestsToRun testsToRun = newTestsToRun(Sub1Tests.class, Sub2Tests.class);
 
 		jUnitPlatformProvider.invoke(testsToRun);
-		final RunListener reporter = providerParameters.getReporterFactory().createReporter();
+		RunListener reporter = providerParameters.getReporterFactory().createReporter();
 
 		ArgumentCaptor<ReportEntry> reportEntryArgumentCaptor = ArgumentCaptor.forClass(ReportEntry.class);
 		verify(reporter, times(2)).testSucceeded(reportEntryArgumentCaptor.capture());
 
-		final List<ReportEntry> allValues = reportEntryArgumentCaptor.getAllValues();
+		List<ReportEntry> allValues = reportEntryArgumentCaptor.getAllValues();
 		assertThat(allValues).extracting(ReportEntry::getSourceName).containsExactly(classNames);
 	}
 
