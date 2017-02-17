@@ -18,10 +18,7 @@ import static org.junit.platform.commons.meta.API.Usage.Internal;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.extension.AfterAllCallback;
@@ -118,11 +115,14 @@ public class ClassTestDescriptor extends JupiterTestDescriptor {
 
 	@Override
 	public LegacyReportingInfo getLegacyReportingInfo() {
-		return new DefaultLegacyReportingInfo(null, this.getDisplayName());
+		return new DefaultLegacyReportingInfo(testClass.getName(),
+				getParent().map(TestDescriptor::getLegacyReportingInfo).flatMap(LegacyReportingInfo::getName).orElse(null));
 	}
 
 	private static String generateDefaultDisplayName(Class<?> testClass) {
-		return testClass.getName();
+		String name = testClass.getName();
+		int index = name.lastIndexOf('.');
+		return name.substring(index + 1);
 	}
 
 	// --- Node ----------------------------------------------------------------
