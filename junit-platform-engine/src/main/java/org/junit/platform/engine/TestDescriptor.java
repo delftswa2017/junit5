@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.junit.platform.commons.meta.API;
-import org.junit.platform.engine.support.descriptor.DefaultLegacyReportingInfo;
 
 /**
  * Mutable descriptor for a test or container that has been discovered by a
@@ -188,10 +187,17 @@ public interface TestDescriptor {
 	 * @return A LegacyReportingInfo containing the logical method and class display names.
 	 */
 	default LegacyReportingInfo getLegacyReportingInfo() {
-		final String displayName = getDisplayName();
-		final Optional<String> className = getParent().map(TestDescriptor::getDisplayName);
+		return new LegacyReportingInfo() {
+			@Override
+			public Optional<String> getMethodName() {
+				return Optional.ofNullable(getDisplayName());
+			}
 
-		return new DefaultLegacyReportingInfo(displayName, className.orElse(null));
+			@Override
+			public Optional<String> getClassName() {
+				return getParent().map(TestDescriptor::getDisplayName);
+			}
+		};
 	}
 
 	interface LegacyReportingInfo {
