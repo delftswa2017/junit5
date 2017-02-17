@@ -26,7 +26,7 @@ import org.apache.maven.surefire.report.PojoStackTraceWriter;
 import org.apache.maven.surefire.report.RunListener;
 import org.apache.maven.surefire.report.SimpleReportEntry;
 import org.apache.maven.surefire.report.StackTraceWriter;
-import org.junit.platform.engine.TestDescriptor;
+import org.junit.platform.engine.LegacyReportingInfo;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
@@ -82,17 +82,16 @@ final class RunListenerAdapter implements TestExecutionListener {
 	}
 
 	private SimpleReportEntry createReportEntry(TestIdentifier testIdentifier, Optional<Throwable> throwable) {
-		TestDescriptor.LegacyReportingInfo legacyReportingInfo = testIdentifier.getLegacyReportingInfo();
+		LegacyReportingInfo legacyReportingInfo = testIdentifier.getLegacyReportingInfo();
 		Optional<String> className = legacyReportingInfo.getClassName();
-		String methodName = legacyReportingInfo.getMethodName().orElse("");
+		String name = legacyReportingInfo.getName().orElse("");
 
 		if (className.isPresent()) {
-			StackTraceWriter traceWriter = new PojoStackTraceWriter(className.get(), methodName,
-				throwable.orElse(null));
-			return new SimpleReportEntry(className.get(), methodName, traceWriter, null);
+			StackTraceWriter traceWriter = new PojoStackTraceWriter(className.get(), name, throwable.orElse(null));
+			return new SimpleReportEntry(className.get(), name, traceWriter, null);
 		}
 		else {
-			return new SimpleReportEntry(parentDisplayName(testIdentifier), methodName, null);
+			return new SimpleReportEntry(parentDisplayName(testIdentifier), name, null);
 		}
 	}
 

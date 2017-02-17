@@ -13,15 +13,15 @@ package org.junit.platform.engine.support.descriptor;
 import java.io.Serializable;
 import java.util.Optional;
 
-import org.junit.platform.engine.TestDescriptor;
+import org.junit.platform.engine.LegacyReportingInfo;
 
-public class DefaultLegacyReportingInfo implements TestDescriptor.LegacyReportingInfo, Serializable {
+public class DefaultLegacyReportingInfo implements LegacyReportingInfo, Serializable {
 	private static final long serialVersionUID = 2896941058543948169L;
 	private final String methodName;
 	private final String className;
 
-	public static DefaultLegacyReportingInfo from(TestDescriptor.LegacyReportingInfo info) {
-		String methodName = info.getMethodName().orElse(null);
+	public static DefaultLegacyReportingInfo from(LegacyReportingInfo info) {
+		String methodName = info.getName().orElse(null);
 		String className = info.getClassName().orElse(null);
 		return new DefaultLegacyReportingInfo(methodName, className);
 	}
@@ -32,7 +32,7 @@ public class DefaultLegacyReportingInfo implements TestDescriptor.LegacyReportin
 	}
 
 	@Override
-	public Optional<String> getMethodName() {
+	public Optional<String> getName() {
 		return Optional.ofNullable(methodName);
 	}
 

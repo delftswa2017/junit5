@@ -189,7 +189,7 @@ public interface TestDescriptor {
 	default LegacyReportingInfo getLegacyReportingInfo() {
 		return new LegacyReportingInfo() {
 			@Override
-			public Optional<String> getMethodName() {
+			public Optional<String> getName() {
 				return Optional.ofNullable(getDisplayName());
 			}
 
@@ -198,12 +198,6 @@ public interface TestDescriptor {
 				return getParent().map(TestDescriptor::getDisplayName);
 			}
 		};
-	}
-
-	interface LegacyReportingInfo {
-		Optional<String> getMethodName();
-
-		Optional<String> getClassName();
 	}
 
 	/**

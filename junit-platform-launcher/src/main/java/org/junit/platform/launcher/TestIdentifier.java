@@ -23,6 +23,7 @@ import java.util.Set;
 import org.junit.platform.commons.meta.API;
 import org.junit.platform.commons.util.Preconditions;
 import org.junit.platform.commons.util.ToStringBuilder;
+import org.junit.platform.engine.LegacyReportingInfo;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.TestTag;
@@ -187,7 +188,7 @@ public final class TestIdentifier implements Serializable {
 		// @formatter:on
 	}
 
-	public TestDescriptor.LegacyReportingInfo getLegacyReportingInfo() {
+	public LegacyReportingInfo getLegacyReportingInfo() {
 		return legacyReportingInfo;
 	}
 }

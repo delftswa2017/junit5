@@ -50,7 +50,7 @@ class TestIdentifierTests {
 
 		assertEquals("uniqueId", identifier.getUniqueId());
 		assertEquals("displayName", identifier.getDisplayName());
-		assertThat(identifier.getLegacyReportingInfo().getMethodName()).contains("method");
+		assertThat(identifier.getLegacyReportingInfo().getName()).contains("method");
 		assertThat(identifier.getLegacyReportingInfo().getClassName()).contains("class");
 		assertThat(identifier.getSource()).contains(new ClassSource(TestIdentifierTests.class));
 		assertEquals(singleton(TestTag.create("aTag")), identifier.getTags());
