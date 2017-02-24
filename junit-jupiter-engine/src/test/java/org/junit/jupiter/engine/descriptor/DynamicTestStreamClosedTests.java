@@ -34,7 +34,6 @@ public class DynamicTestStreamClosedTests {
 	private TestExtensionContext testExtensionContext;
 	private boolean isClosed;
 
-	@SuppressWarnings("unchecked")
 	@BeforeEach
 	public void before() {
 		testExtensionContext = mock(TestExtensionContext.class);
