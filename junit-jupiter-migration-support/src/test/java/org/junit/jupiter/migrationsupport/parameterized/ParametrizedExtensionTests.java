@@ -81,6 +81,11 @@ class ParametrizedExtensionTests {
 		}
 	}
 
+
+	public static void main(String[] args) {
+		new ParametrizedExtensionTests().emptyParametersList();
+	}
+
 	@Test
 	void paremeterizedWithConstructorInjection() {
 		ExecutionEventRecorder executionEventRecorder = executeTestsForClass(ParameterizedTestWithConstructor.class);
